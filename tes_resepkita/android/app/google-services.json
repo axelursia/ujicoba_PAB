@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1094877603105",
+    "firebase_url": "https://resepkita-apps-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "resepkita-apps",
+    "storage_bucket": "resepkita-apps.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1094877603105:android:0290e1cb68ad23f1508a60",
+        "android_client_info": {
+          "package_name": "com.example.tes_resepkita"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJkEGFf9S0BnqkDW7NAxRSkPa_cAUDmMs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
