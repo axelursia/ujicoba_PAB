@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:tes_resepkita/providers/auth_providers.dart';
 
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+  const RegisterScreen({super.key});
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -28,7 +28,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     if (passwordController.text != confirmPasswordController.text) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-            content: Text('Password dan konfirmasi password tidak sama')),
+          content: Text('Password dan konfirmasi password tidak sama'),
+        ),
       );
       return;
     }
@@ -37,13 +38,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
     });
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final error = await authProvider.register(
-        emailController.text.trim(), passwordController.text.trim());
+      emailController.text.trim(),
+      passwordController.text.trim(),
+    );
     setState(() {
       isLoading = false;
     });
     if (error != null) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(error)));
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(error)));
     } else {
       // Navigasi ke Home Screen jika register sukses
       Navigator.pushReplacementNamed(context, '/home');
@@ -95,9 +99,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
               isLoading
                   ? const CircularProgressIndicator()
                   : ElevatedButton(
-                      onPressed: register,
-                      child: const Text('Register'),
-                    ),
+                    onPressed: register,
+                    child: const Text('Register'),
+                  ),
               const SizedBox(height: 16),
               TextButton(
                 onPressed: () {

@@ -45,10 +45,10 @@ class DetailScreen extends StatefulWidget {
   final String currentUserId;
 
   const DetailScreen({
-    Key? key,
+    super.key,
     required this.recipe,
     required this.currentUserId,
-  }) : super(key: key);
+  });
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();

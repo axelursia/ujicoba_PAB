@@ -4,7 +4,7 @@ import 'package:tes_resepkita/providers/auth_providers.dart';
 import 'register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -28,13 +28,16 @@ class _LoginScreenState extends State<LoginScreen> {
     });
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final error = await authProvider.login(
-        emailController.text.trim(), passwordController.text.trim());
+      emailController.text.trim(),
+      passwordController.text.trim(),
+    );
     setState(() {
       isLoading = false;
     });
     if (error != null) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(error)));
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(error)));
     } else {
       // Navigasi ke Home Screen jika login sukses
       Navigator.pushReplacementNamed(context, '/home');
@@ -74,10 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(height: 24),
             isLoading
                 ? const CircularProgressIndicator()
-                : ElevatedButton(
-                    onPressed: login,
-                    child: const Text('Login'),
-                  ),
+                : ElevatedButton(onPressed: login, child: const Text('Login')),
             const SizedBox(height: 16),
             TextButton(
               onPressed: () {

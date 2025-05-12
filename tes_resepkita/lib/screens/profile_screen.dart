@@ -6,7 +6,7 @@ import 'edit_profile_screen.dart';
 class ProfileScreen extends StatefulWidget {
   final String userId;
 
-  const ProfileScreen({Key? key, required this.userId}) : super(key: key);
+  const ProfileScreen({super.key, required this.userId});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -56,14 +56,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> _loadUserRecipes() async {
-    var querySnapshot = await _firestore
-        .collection('recipes')
-        .where('userId', isEqualTo: widget.userId)
-        .get();
+    var querySnapshot =
+        await _firestore
+            .collection('recipes')
+            .where('userId', isEqualTo: widget.userId)
+            .get();
 
-    final recipes = querySnapshot.docs
-        .map((doc) => Recipe.fromMap(doc.id, doc.data()))
-        .toList();
+    final recipes =
+        querySnapshot.docs
+            .map((doc) => Recipe.fromMap(doc.id, doc.data()))
+            .toList();
 
     setState(() {
       userRecipes = recipes;
@@ -75,9 +77,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void _onSearchChanged() {
     final query = _searchController.text.toLowerCase();
     setState(() {
-      filteredRecipes = userRecipes
-          .where((recipe) => recipe.title.toLowerCase().contains(query))
-          .toList();
+      filteredRecipes =
+          userRecipes
+              .where((recipe) => recipe.title.toLowerCase().contains(query))
+              .toList();
     });
   }
 
@@ -113,22 +116,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 CircleAvatar(
                   radius: 40,
-                  backgroundImage: userPhotoUrl.isNotEmpty
-                      ? NetworkImage(userPhotoUrl)
-                      : const AssetImage('assets/images/default_avatar.png')
-                          as ImageProvider,
+                  backgroundImage:
+                      userPhotoUrl.isNotEmpty
+                          ? NetworkImage(userPhotoUrl)
+                          : const AssetImage('assets/images/default_avatar.png')
+                              as ImageProvider,
                 ),
                 const SizedBox(width: 16),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(userName,
-                          style: const TextStyle(
-                              fontSize: 14, color: Colors.grey)),
-                      Text(fullName,
-                          style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold)),
+                      Text(
+                        userName,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      Text(
+                        fullName,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       const SizedBox(height: 12),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -148,11 +160,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _buildFeatureButton(
-                    Icons.explore, 'Explore', () => _navigateTo('/explore')),
-                _buildFeatureButton(Icons.bookmark, 'Resep disimpan',
-                    () => _navigateTo('/saved_recipes')),
-                _buildFeatureButton(Icons.restaurant_menu, 'Resep',
-                    () => _navigateTo('/my_recipes')),
+                  Icons.explore,
+                  'Explore',
+                  () => _navigateTo('/explore'),
+                ),
+                _buildFeatureButton(
+                  Icons.bookmark,
+                  'Resep disimpan',
+                  () => _navigateTo('/saved_recipes'),
+                ),
+                _buildFeatureButton(
+                  Icons.restaurant_menu,
+                  'Resep',
+                  () => _navigateTo('/my_recipes'),
+                ),
               ],
             ),
             const SizedBox(height: 24),
@@ -161,54 +182,62 @@ class _ProfileScreenState extends State<ProfileScreen> {
               decoration: InputDecoration(
                 hintText: 'Cari resep saya',
                 prefixIcon: const Icon(Icons.search),
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
               ),
             ),
             const SizedBox(height: 24),
             Expanded(
-              child: filteredRecipes.isEmpty
-                  ? Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset('assets/images/empty_profile.png',
-                            width: 150, height: 150),
-                        const SizedBox(height: 16),
-                        const Text(
-                          'Resep kreasimu masih kosong nih!!!',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 16),
-                        ),
-                        const SizedBox(height: 8),
-                        const Text(
-                          'Mulai tulis resepmu dan dapatkan point\nuntuk setiap resep yang di publish',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                      ],
-                    )
-                  : ListView.builder(
-                      itemCount: filteredRecipes.length,
-                      itemBuilder: (context, index) {
-                        final recipe = filteredRecipes[index];
-                        return Card(
-                          child: ListTile(
-                            leading: Image.network(
-                              recipe.imageUrl,
-                              width: 60,
-                              height: 60,
-                              fit: BoxFit.cover,
-                            ),
-                            title: Text(recipe.title),
-                            subtitle: Text(
-                                'Rating: ${recipe.rating.toStringAsFixed(1)}'),
-                            onTap: () {
-                              // Navigasi ke detail resep jika ada
-                            },
+              child:
+                  filteredRecipes.isEmpty
+                      ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'assets/images/empty_profile.png',
+                            width: 150,
+                            height: 150,
                           ),
-                        );
-                      },
-                    ),
+                          const SizedBox(height: 16),
+                          const Text(
+                            'Resep kreasimu masih kosong nih!!!',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          const Text(
+                            'Mulai tulis resepmu dan dapatkan point\nuntuk setiap resep yang di publish',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ],
+                      )
+                      : ListView.builder(
+                        itemCount: filteredRecipes.length,
+                        itemBuilder: (context, index) {
+                          final recipe = filteredRecipes[index];
+                          return Card(
+                            child: ListTile(
+                              leading: Image.network(
+                                recipe.imageUrl,
+                                width: 60,
+                                height: 60,
+                                fit: BoxFit.cover,
+                              ),
+                              title: Text(recipe.title),
+                              subtitle: Text(
+                                'Rating: ${recipe.rating.toStringAsFixed(1)}',
+                              ),
+                              onTap: () {
+                                // Navigasi ke detail resep jika ada
+                              },
+                            ),
+                          );
+                        },
+                      ),
             ),
             const SizedBox(height: 12),
             ElevatedButton.icon(
@@ -216,8 +245,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
               label: const Text('Tulis Resep'),
               onPressed: () => _navigateTo('/post'),
               style: ElevatedButton.styleFrom(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 40,
+                  vertical: 12,
+                ),
               ),
             ),
           ],
@@ -229,8 +260,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget _buildCountColumn(String label, int count) {
     return Column(
       children: [
-        Text('$count',
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        Text(
+          '$count',
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
         const SizedBox(height: 4),
         Text(label, style: const TextStyle(color: Colors.grey)),
       ],
@@ -248,9 +281,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Icon(icon, size: 28, color: Colors.black87),
           ),
           const SizedBox(height: 8),
-          Text(label,
-              style:
-                  const TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
+          Text(
+            label,
+            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+          ),
         ],
       ),
     );

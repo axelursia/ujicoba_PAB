@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class EditProfileScreen extends StatefulWidget {
   final String userId;
 
-  const EditProfileScreen({Key? key, required this.userId}) : super(key: key);
+  const EditProfileScreen({super.key, required this.userId});
 
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();

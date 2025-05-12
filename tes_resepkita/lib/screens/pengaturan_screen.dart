@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PengaturanScreen extends StatefulWidget {
-  const PengaturanScreen({Key? key}) : super(key: key);
+  const PengaturanScreen({super.key});
 
   @override
   State<PengaturanScreen> createState() => _PengaturanScreenState();
@@ -75,20 +75,19 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
     return ListTile(
       leading: Icon(icon, color: Colors.black87),
       title: Text(title),
-      trailing: trailingText != null
-          ? Text(
-              trailingText,
-              style: TextStyle(
-                color: trailingColor ?? Colors.grey,
-                fontWeight: FontWeight.w600,
-              ),
-            )
-          : const Icon(Icons.arrow_forward_ios, size: 16),
+      trailing:
+          trailingText != null
+              ? Text(
+                trailingText,
+                style: TextStyle(
+                  color: trailingColor ?? Colors.grey,
+                  fontWeight: FontWeight.w600,
+                ),
+              )
+              : const Icon(Icons.arrow_forward_ios, size: 16),
       onTap: onTap,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     );
   }
 
@@ -117,8 +116,10 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
                   ),
                   const Divider(height: 1),
                   SwitchListTile(
-                    secondary:
-                        const Icon(Icons.notifications, color: Colors.black87),
+                    secondary: const Icon(
+                      Icons.notifications,
+                      color: Colors.black87,
+                    ),
                     title: const Text('Notifikasi'),
                     value: _notifikasiNyala,
                     onChanged: (val) {

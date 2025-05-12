@@ -4,9 +4,11 @@ class StarRating extends StatelessWidget {
   final int rating;
   final Function(int) onRatingChanged;
 
-  const StarRating(
-      {Key? key, required this.rating, required this.onRatingChanged})
-      : super(key: key);
+  const StarRating({
+    super.key,
+    required this.rating,
+    required this.onRatingChanged,
+  });
 
   Widget buildStar(int index) {
     if (index < rating) {

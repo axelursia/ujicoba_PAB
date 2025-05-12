@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:tes_resepkita/screens/splash_screen.dart';
 
 // Import screens
-import 'screens/login_screen.dart';
 import 'screens/home_screens.dart';
 import 'screens/post_screen.dart';
 import 'screens/profile_screen.dart';
@@ -19,12 +18,18 @@ import 'utils/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  try {
+    // Menambahkan penanganan kesalahan untuk inisialisasi Firebase
+    await Firebase.initializeApp();
+  } catch (e) {
+    // Menampilkan error jika inisialisasi Firebase gagal
+    print('Firebase initialization error: $e');
+  }
   runApp(const ResepKitaApp());
 }
 
 class ResepKitaApp extends StatelessWidget {
-  const ResepKitaApp({Key? key}) : super(key: key);
+  const ResepKitaApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +43,7 @@ class ResepKitaApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Resep Kita',
         theme: appTheme,
-        home: const SplashScreen(),
+        home: const SplashScreen(), // SplashScreen sebagai halaman pertama
         routes: {
           '/home': (context) => HomeScreen(),
           '/post': (context) => const PostScreen(),
