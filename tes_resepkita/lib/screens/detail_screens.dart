@@ -4,41 +4,7 @@ import 'package:intl/intl.dart';
 
 import 'package:tes_resepkita/providers/rating_providers.dart';
 import '../widgets/star_rating.dart';
-
-class Recipe {
-  final String id;
-  final String title;
-  final String description;
-  final String imageUrl;
-  final String authorId;
-  final String authorName;
-  final String authorAvatarUrl;
-  final DateTime createdAt;
-  final List<String> mainIngredients;
-  final List<String> equipment;
-  final List<RecipeStep> steps;
-
-  Recipe({
-    required this.id,
-    required this.title,
-    required this.description,
-    required this.imageUrl,
-    required this.authorId,
-    required this.authorName,
-    required this.authorAvatarUrl,
-    required this.createdAt,
-    required this.mainIngredients,
-    required this.equipment,
-    required this.steps,
-  });
-}
-
-class RecipeStep {
-  final String imageUrl;
-  final String description;
-
-  RecipeStep({required this.imageUrl, required this.description});
-}
+import '../models/recipe_model.dart';
 
 class DetailScreen extends StatefulWidget {
   final Recipe recipe;
@@ -57,8 +23,7 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   late RatingProvider ratingProvider;
   final TextEditingController _commentController = TextEditingController();
-  bool isFollowing =
-      false; // Simulasi status follow, bisa dihubungkan ke backend
+  bool isFollowing = false; // Simulasi status follow, bisa dihubungkan ke backend
 
   @override
   void initState() {
@@ -86,30 +51,28 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget _buildIngredientList(List<String> ingredients) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children:
-          ingredients
-              .map(
-                (item) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 2.0),
-                  child: Text("• $item"),
-                ),
-              )
-              .toList(),
+      children: ingredients
+          .map(
+            (item) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: 2.0),
+              child: Text("• $item"),
+            ),
+          )
+          .toList(),
     );
   }
 
   Widget _buildEquipmentList(List<String> equipment) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children:
-          equipment
-              .map(
-                (item) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 2.0),
-                  child: Text("• $item"),
-                ),
-              )
-              .toList(),
+      children: equipment
+          .map(
+            (item) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: 2.0),
+              child: Text("• $item"),
+            ),
+          )
+          .toList(),
     );
   }
 
@@ -384,8 +347,6 @@ class _DetailScreenState extends State<DetailScreen> {
                     ),
                   ],
                 ),
-
-                // TODO: Tampilkan daftar komentar di bawah sini (bisa dibuat widget terpisah)
               ],
             );
           },

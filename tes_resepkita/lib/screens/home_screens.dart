@@ -3,16 +3,33 @@ import '../services/recipe_service.dart';
 import '../models/recipe_model.dart';
 
 class HomeScreen extends StatelessWidget {
-  // Hilangkan const pada constructor
-  HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({super.key});
 
-  // Buat instance RecipeService tanpa const
   final RecipeService _recipeService = RecipeService();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Resep Kita')),
+      appBar: AppBar(
+        title: const Text('Resep Kita'),
+        actions: [
+          // Tombol untuk pencarian resep
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              // Navigasi ke halaman pencarian
+              Navigator.pushNamed(context, '/search');
+            },
+          ),
+          // Tombol untuk notifikasi
+          IconButton(
+            icon: const Icon(Icons.notifications),
+            onPressed: () {
+              // Logika untuk mengaktifkan notifikasi
+            },
+          ),
+        ],
+      ),
       body: StreamBuilder<List<Recipe>>(
         stream: _recipeService.getRecipes(),
         builder: (context, snapshot) {
@@ -36,13 +53,14 @@ class HomeScreen extends StatelessWidget {
               final recipe = recipes[index];
               return GestureDetector(
                 onTap: () {
-                  // Navigasi ke halaman detail jika ada
-                  // Navigator.push(context, MaterialPageRoute(builder: (_) => DetailScreen(recipe: recipe)));
+                  // Navigasi ke halaman detail resep dengan parameter
+                  Navigator.pushNamed(context, '/detail', arguments: recipe);
                 },
                 child: Card(
+                  elevation: 4.0,
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12)),
-                  elevation: 4,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                   clipBehavior: Clip.antiAlias,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -51,8 +69,9 @@ class HomeScreen extends StatelessWidget {
                         child: Image.network(
                           recipe.imageUrl,
                           fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) =>
-                              const Icon(Icons.broken_image),
+                          errorBuilder:
+                              (context, error, stackTrace) =>
+                                  const Icon(Icons.broken_image),
                         ),
                       ),
                       Padding(
@@ -63,12 +82,20 @@ class HomeScreen extends StatelessWidget {
                             Text(
                               recipe.title,
                               style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 16),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
                             const SizedBox(height: 4),
                             Text('Rating: ${recipe.rating.toStringAsFixed(1)}'),
+                            IconButton(
+                              icon: const Icon(Icons.favorite_border),
+                              onPressed: () {
+                                // Logika untuk menambahkan resep ke favorit
+                              },
+                            ),
                           ],
                         ),
                       ),

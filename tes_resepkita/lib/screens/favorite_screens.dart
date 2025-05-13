@@ -20,7 +20,7 @@ class FavoriteRecipe {
 }
 
 class FavoriteScreens extends StatefulWidget {
-  const FavoriteScreens({Key? key}) : super(key: key);
+  const FavoriteScreens({super.key});
 
   @override
   State<FavoriteScreens> createState() => _FavoriteScreensState();
@@ -347,10 +347,10 @@ class DetailScreen extends StatelessWidget {
   final String recipeTitle;
 
   const DetailScreen({
-    Key? key,
+    super.key,
     required this.recipeId,
     required this.recipeTitle,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
